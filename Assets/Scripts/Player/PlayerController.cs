@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        bounds = boundaries.bounds; 
+        bounds = boundaries.bounds;
 
         offset = transform.position.x - fruitThrowTransform.position.x;
 
@@ -40,11 +40,19 @@ public class PlayerController : MonoBehaviour
         transform.position = newPos;
     }
 
-    public void ChangeBoundary(float extraWidth){
+    public Vector3 ClampPos()
+    {
+        Vector3 newPos = transform.position;
+        newPos.x = Mathf.Clamp(newPos.x, leftBound, rightBound);
+        return newPos;
+    }
+
+    public void ChangeBoundary(float extraWidth)
+    {
         leftBound = startingLeftBound;
         rightBound = startingRightBound;
 
         leftBound += ThrowFruitController.Instance.Bounds.extents.x + extraWidth;
         rightBound -= ThrowFruitController.Instance.Bounds.extents.x + extraWidth;
-    } 
+    }
 }
